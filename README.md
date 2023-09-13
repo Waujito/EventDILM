@@ -1,5 +1,5 @@
 # EventDILM
 
-### EventDILM - A dynamic manager for independent event listeners
+EventDILM - A dynamic manager for independent event listeners
 
-### Динамическая орекстрация автономных обработчиков событий
+Динамическая орекстрация автономных обработчиков событий
