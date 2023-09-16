@@ -1,2 +1,2 @@
 group = "io.github.waujito.eventdilm"
-version = "indev-0-259"
+version = "indev-1-259"
