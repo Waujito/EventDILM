@@ -1,17 +1,16 @@
 package io.github.waujito.eventdilm.core.listener;
 
 import io.github.waujito.eventdilm.core.event.Event;
-import io.github.waujito.eventdilm.core.event.ProcessStatus;
 
 /**
  * Represents registered instance of the listener.
  */
-public interface ListenerInstance<UEvent extends Event, UProcessStatus extends ProcessStatus> {
+public interface ListenerInstance<UEvent extends Event> {
 
     /**
      * Id of the listener
      */
-    String getId();
+    Long id();
 
-    EventListener<UEvent, UProcessStatus> getEventListener();
+    EventListener<UEvent> eventListener();
 }

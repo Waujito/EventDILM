@@ -1,22 +1,34 @@
-package io.github.waujito.eventdilm.core.manager;
+package io.github.waujito.eventdilm.core.managers;
 
 import io.github.waujito.eventdilm.core.event.Event;
 import io.github.waujito.eventdilm.core.event.ProcessStatus;
+import io.github.waujito.eventdilm.core.listener.BasicListenerInstance;
 import io.github.waujito.eventdilm.core.listener.EventListener;
 import io.github.waujito.eventdilm.core.listener.ListenerInstance;
+import io.github.waujito.eventdilm.core.manager.EventManager;
 import io.github.waujito.eventdilm.core.manager.exceptions.ListenerAlreadyRegisteredException;
 import io.github.waujito.eventdilm.core.manager.exceptions.ListenerDoesNotExistException;
 import io.github.waujito.eventdilm.core.manager.exceptions.ListenerRegistrationFailedException;
 import io.github.waujito.eventdilm.core.manager.exceptions.ListenerUnregistrationFailedException;
 
+import java.util.HashMap;
+
 /**
- * Operates with event listeners.
- * The main interface of DILM abstraction.
- * <p>
- * Extends {@link EventListener} to make it possible to use this manager as listener with other managers.
+ * Abstract event manager that implements most general of the EventManager methods
  */
-public interface EventManager<UEvent extends Event>
-        extends EventListener<UEvent> {
+public abstract class AbstractEventManager<UEvent extends Event>
+        implements EventManager<UEvent> {
+
+    /**
+     * Collects all registered event listeners
+     */
+    protected final HashMap<Long, ListenerInstance<UEvent>> listeners;
+
+    private Long i = 0L;
+
+    protected AbstractEventManager() {
+        this.listeners = new HashMap<>();
+    }
 
     /**
      * Registers the event listener.
@@ -26,7 +38,15 @@ public interface EventManager<UEvent extends Event>
      * @throws ListenerRegistrationFailedException Registration of the listener has failed.
      * @throws ListenerAlreadyRegisteredException  Listener is already registered
      */
-    ListenerInstance<UEvent> registerListener(EventListener<UEvent> listener);
+    @Override
+    public ListenerInstance<UEvent> registerListener(EventListener<UEvent> listener) {
+        var id = i++;
+
+        var listenerInstance = new BasicListenerInstance<>(listener, id);
+        listeners.put(id, listenerInstance);
+
+        return listenerInstance;
+    }
 
     /**
      * Unregisters the event listener
@@ -35,7 +55,10 @@ public interface EventManager<UEvent extends Event>
      * @throws ListenerUnregistrationFailedException Deletion of the listener has failed.
      * @throws ListenerDoesNotExistException         The listener is not registered
      */
-    void unregisterListener(ListenerInstance<UEvent> listenerInstance);
+    @Override
+    public void unregisterListener(ListenerInstance<UEvent> listenerInstance) {
+        listeners.remove(listenerInstance.id());
+    }
 
     /**
      * Process an event through the listeners.
@@ -43,5 +66,5 @@ public interface EventManager<UEvent extends Event>
      * @return Status of the processing
      */
     @Override
-    ProcessStatus onEvent(UEvent event);
+    public abstract ProcessStatus onEvent(UEvent event);
 }

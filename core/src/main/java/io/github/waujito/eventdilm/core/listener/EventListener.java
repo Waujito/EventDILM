@@ -6,6 +6,6 @@ import io.github.waujito.eventdilm.core.event.ProcessStatus;
 /**
  * Represents the event listener.
  */
-public interface EventListener<UEvent extends Event, UProcessStatus extends ProcessStatus> {
-    UProcessStatus onEvent(UEvent event);
+public interface EventListener<UEvent extends Event> {
+    ProcessStatus onEvent(UEvent event);
 }
