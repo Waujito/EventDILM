@@ -6,3 +6,4 @@ plugins {
 rootProject.name = "EventDILM"
 include("app")
 include("core")
+include("remotelm")
