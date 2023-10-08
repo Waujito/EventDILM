@@ -7,7 +7,7 @@ import io.github.waujito.eventdilm.remotelm.converters.ObjectStringConverter;
 import io.github.waujito.eventdilm.remotelm.messaging.MessagingClient;
 
 public class RemoteListener<UEvent extends Event, UStatus extends ProcessStatus>
-        implements EventListener<UEvent> {
+        implements EventListener<UEvent, UStatus> {
     private final ObjectStringConverter<UEvent> eventConverter;
     private final ObjectStringConverter<UStatus> statusConverter;
     private final MessagingClient messagingClient;

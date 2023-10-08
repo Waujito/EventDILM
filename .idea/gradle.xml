@@ -23,8 +23,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/dockerlm" />
-            <option value="$PROJECT_DIR$/dockerlm/orchestration" />
-            <option value="$PROJECT_DIR$/dockerlm/orchestrator" />
+            <option value="$PROJECT_DIR$/remotelm" />
           </set>
         </option>
       </GradleProjectSettings>

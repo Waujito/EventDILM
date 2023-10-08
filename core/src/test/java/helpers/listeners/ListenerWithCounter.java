@@ -8,7 +8,7 @@ import io.github.waujito.eventdilm.core.listener.EventListener;
 /**
  * Counts how many times it was called
  */
-public class ListenerWithCounter<UEvent extends Event> implements EventListener<UEvent> {
+public class ListenerWithCounter<UEvent extends Event> implements EventListener<UEvent, ProcessStatus> {
     private int counter = 0;
 
     public int getCounter() {

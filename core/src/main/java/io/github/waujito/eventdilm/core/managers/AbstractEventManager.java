@@ -16,13 +16,13 @@ import java.util.HashMap;
 /**
  * Abstract event manager that implements most general of the EventManager methods
  */
-public abstract class AbstractEventManager<UEvent extends Event>
-        implements EventManager<UEvent> {
+public abstract class AbstractEventManager<UEvent extends Event, UStatus extends ProcessStatus>
+        implements EventManager<UEvent, UStatus> {
 
     /**
      * Collects all registered event listeners
      */
-    protected final HashMap<Long, ListenerInstance<UEvent>> listeners;
+    protected final HashMap<Long, ListenerInstance<EventListener<UEvent, UStatus>>> listeners;
 
     private Long i = 0L;
 
@@ -39,7 +39,7 @@ public abstract class AbstractEventManager<UEvent extends Event>
      * @throws ListenerAlreadyRegisteredException  Listener is already registered
      */
     @Override
-    public ListenerInstance<UEvent> registerListener(EventListener<UEvent> listener) {
+    public ListenerInstance<EventListener<UEvent, UStatus>> registerListener(EventListener<UEvent, UStatus> listener) {
         var id = i++;
 
         var listenerInstance = new BasicListenerInstance<>(listener, id);
@@ -56,7 +56,7 @@ public abstract class AbstractEventManager<UEvent extends Event>
      * @throws ListenerDoesNotExistException         The listener is not registered
      */
     @Override
-    public void unregisterListener(ListenerInstance<UEvent> listenerInstance) {
+    public void unregisterListener(ListenerInstance<EventListener<UEvent, UStatus>> listenerInstance) {
         listeners.remove(listenerInstance.id());
     }
 
@@ -66,5 +66,5 @@ public abstract class AbstractEventManager<UEvent extends Event>
      * @return Status of the processing
      */
     @Override
-    public abstract ProcessStatus onEvent(UEvent event);
+    public abstract UStatus onEvent(UEvent event);
 }

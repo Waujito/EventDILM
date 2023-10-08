@@ -2,6 +2,7 @@ package io.github.waujito.eventdilm.core.managers.chain;
 
 import io.github.waujito.eventdilm.core.event.BaseProcessStatus;
 import io.github.waujito.eventdilm.core.event.Event;
+import io.github.waujito.eventdilm.core.event.ProcessStatus;
 import io.github.waujito.eventdilm.core.managers.AbstractEventManager;
 
 /**
@@ -9,7 +10,7 @@ import io.github.waujito.eventdilm.core.managers.AbstractEventManager;
  * <b>The order of the listeners in the chain may vary.</b>
  */
 public class ChainEventManager<UEvent extends Event>
-        extends AbstractEventManager<UEvent> {
+        extends AbstractEventManager<UEvent, ProcessStatus> {
 
     public ChainEventManager() {
         super();

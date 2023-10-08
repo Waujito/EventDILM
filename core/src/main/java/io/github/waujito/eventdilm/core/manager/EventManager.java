@@ -15,8 +15,8 @@ import io.github.waujito.eventdilm.core.manager.exceptions.ListenerUnregistratio
  * <p>
  * Extends {@link EventListener} to make it possible to use this manager as listener with other managers.
  */
-public interface EventManager<UEvent extends Event>
-        extends EventListener<UEvent> {
+public interface EventManager<UEvent extends Event, UStatus extends ProcessStatus>
+        extends EventListener<UEvent, UStatus> {
 
     /**
      * Registers the event listener.
@@ -26,7 +26,7 @@ public interface EventManager<UEvent extends Event>
      * @throws ListenerRegistrationFailedException Registration of the listener has failed.
      * @throws ListenerAlreadyRegisteredException  Listener is already registered
      */
-    ListenerInstance<UEvent> registerListener(EventListener<UEvent> listener);
+    ListenerInstance<EventListener<UEvent, UStatus>> registerListener(EventListener<UEvent, UStatus> listener);
 
     /**
      * Unregisters the event listener
@@ -35,7 +35,7 @@ public interface EventManager<UEvent extends Event>
      * @throws ListenerUnregistrationFailedException Deletion of the listener has failed.
      * @throws ListenerDoesNotExistException         The listener is not registered
      */
-    void unregisterListener(ListenerInstance<UEvent> listenerInstance);
+    void unregisterListener(ListenerInstance<EventListener<UEvent, UStatus>> listenerInstance);
 
     /**
      * Process an event through the listeners.
@@ -43,5 +43,5 @@ public interface EventManager<UEvent extends Event>
      * @return Status of the processing
      */
     @Override
-    ProcessStatus onEvent(UEvent event);
+    UStatus onEvent(UEvent event);
 }

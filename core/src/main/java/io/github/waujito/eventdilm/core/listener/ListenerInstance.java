@@ -1,16 +1,14 @@
 package io.github.waujito.eventdilm.core.listener;
 
-import io.github.waujito.eventdilm.core.event.Event;
-
 /**
  * Represents registered instance of the listener.
  */
-public interface ListenerInstance<UEvent extends Event> {
+public interface ListenerInstance<UEventListener extends EventListener<?, ?>> {
 
     /**
      * Id of the listener
      */
     Long id();
 
-    EventListener<UEvent> eventListener();
+    UEventListener eventListener();
 }
